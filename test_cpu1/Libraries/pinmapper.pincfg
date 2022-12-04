@@ -1,0 +1,99 @@
+<v1:pinSettings xmlns:v1="http://www.tasking.com/schema/pinsettings/v1.1">
+  <v1:pinMappingsRef version="1.8" file="platform:/plugin/com.tasking.pinmapper.input.aurix/etc/TC26x_A-B_pinmappings.xml"/>
+  <v1:deviceSetting id="tc26xa" pattern="TC264* A">
+    <v1:packageSetting id="qfp144"/>
+  </v1:deviceSetting>
+  <v1:configSetting configurationId="p14_5.in.bind" altId="p14_5.in.bind.in">
+    <v1:connectionSetting altId="evr3v.en.bind.en"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="scu.hwcfg5.bind" altId="scu.hwcfg5.bind.hwcfg5">
+    <v1:connectionSetting altId="p10_6.in.bind.in"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="p14_3.in.bind" altId="p14_3.in.bind.in">
+    <v1:connectionSetting altId="scu.hwcfg3.bind.hwcfg3"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="evr1v.en.bind" altId="evr1v.en.bind.en">
+    <v1:connectionSetting altId="p14_2.in.bind.in"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="evr1v.mode.bind" altId="evr1v.mode.bind.mode">
+    <v1:connectionSetting altId="p14_6.in.bind.in"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="p14_2.in.bind" altId="p14_2.in.bind.in">
+    <v1:connectionSetting altId="evr1v.en.bind.en"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="p14_6.in.bind" altId="p14_6.in.bind.in">
+    <v1:connectionSetting altId="evr1v.mode.bind.mode"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="p10_6.in.bind" altId="p10_6.in.bind.in">
+    <v1:connectionSetting altId="scu.hwcfg5.bind.hwcfg5"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="p20_2.in.bind" altId="p20_2.in.bind.in">
+    <v1:connectionSetting altId="scu.testmode.bind.testmode"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="p10_5.in.bind" altId="p10_5.in.bind.in">
+    <v1:connectionSetting altId="scu.hwcfg4.bind.hwcfg4"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="scu.hwcfg4.bind" altId="scu.hwcfg4.bind.hwcfg4">
+    <v1:connectionSetting altId="p10_5.in.bind.in"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="porst_n.in.bind" altId="porst_n.in.bind.in">
+    <v1:connectionSetting altId="scu.porst.bind.porst"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="evr3v.en.bind" altId="evr3v.en.bind.en">
+    <v1:connectionSetting altId="p14_5.in.bind.in"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="scu.hwcfg3.bind" altId="scu.hwcfg3.bind.hwcfg3">
+    <v1:connectionSetting altId="p14_3.in.bind.in"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="scu.testmode.bind" altId="scu.testmode.bind.testmode">
+    <v1:connectionSetting altId="p20_2.in.bind.in"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="scu.hwcfg6.bind" altId="scu.hwcfg6.bind.hwcfg6">
+    <v1:connectionSetting altId="p14_4.in.bind.in"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="scu.porst.bind" altId="scu.porst.bind.porst">
+    <v1:connectionSetting altId="porst_n.in.bind.in"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="p14_4.in.bind" altId="p14_4.in.bind.in">
+    <v1:connectionSetting altId="scu.hwcfg6.bind.hwcfg6"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="p21_7.out.bind" altId="p21_7.out.bind.hwout2.mutex2">
+    <v1:connectionSetting altId="dap3p.dap2.bind.dap2"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="asclin3.rxd.bind" altId="asclin3.rxd.bind.none"/>
+  <v1:configSetting configurationId="asclin3.txd.bind" altId="asclin3.txd.bind.none"/>
+  <v1:configSetting configurationId="tms.in.bind" altId="tms.in.bind.in">
+    <v1:connectionSetting altId="dap3p.dap1in.bind.dap1in"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="tck.in.bind" altId="tck.in.bind.in">
+    <v1:connectionSetting altId="dap3p.dap0in.bind.dap0in"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="p21_7.dir" altId="p21_7.dir.out"/>
+  <v1:configSetting configurationId="jtag.trst.bind" altId="jtag.trst.bind.none"/>
+  <v1:configSetting configurationId="trst_n.in.bind" altId="trst_n.in.bind.in">
+    <v1:connectionSetting altId="dap3p.trst.bind.trst"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="dap3p.trst.bind" altId="dap3p.trst.bind.trst">
+    <v1:connectionSetting altId="trst_n.in.bind.in"/>
+  </v1:configSetting>
+  <v1:propertySetting propertyId="tms.symbolicname" value="DAP3P_DAP1"/>
+  <v1:propertySetting propertyId="trst_n.symbolicname" value="DAP3P_TRST"/>
+  <v1:propertySetting propertyId="p21_7.symbolicname" value="DAP3P_DAP2"/>
+  <v1:propertySetting propertyId="tck.symbolicname" value="DAP3P_DAP0IN"/>
+  <v1:configSetting configurationId="tms.dir" altId="tms.dir.inout"/>
+  <v1:configSetting configurationId="dap3p.dap2.bind" altId="dap3p.dap2.bind.dap2">
+    <v1:connectionSetting altId="p21_7.out.bind.hwout2.mutex2"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="tms.out.bind" altId="tms.out.bind.hwout1.mutex2">
+    <v1:connectionSetting altId="dap3p.dap1.bind.dap1"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="dap3p.dap0in.bind" altId="dap3p.dap0in.bind.dap0in">
+    <v1:connectionSetting altId="tck.in.bind.in"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="dap3p.dap1in.bind" altId="dap3p.dap1in.bind.dap1in">
+    <v1:connectionSetting altId="tms.in.bind.in"/>
+  </v1:configSetting>
+  <v1:configSetting configurationId="dap3p.dap1.bind" altId="dap3p.dap1.bind.dap1">
+    <v1:connectionSetting altId="tms.out.bind.hwout1.mutex2"/>
+  </v1:configSetting>
+</v1:pinSettings>
