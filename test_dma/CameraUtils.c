@@ -9,7 +9,7 @@
 
 // EXI flags
 const unsigned char PinIrqVectabNum[4] =
-        {PIN_INT0_VECTABNUM, PIN_INT1_VECTABNUM, PIN_INT2_VECTABNUM, PIN_INT3_VECTABNUM};
+        {PIN_INT0_TypeOfService, PIN_INT1_TypeOfService, PIN_INT2_TypeOfService, PIN_INT3_TypeOfService};
 
 // EXI priority
 const unsigned char PinIrqPriority[4] = {PIN_INT0_PRIORITY, PIN_INT1_PRIORITY, PIN_INT2_PRIORITY, PIN_INT3_PRIORITY};
@@ -345,7 +345,7 @@ void PIN_INT3_IRQHandler ()
 }
 
 //安装中断服务函数，向量号和优先级
-IFX_INTERRUPT(DMA_IRQHandler, DMA_VECTABNUM, DMA_PRIORITY);
+IFX_INTERRUPT(DMA_IRQHandler, DMA_TypeOfService, DMA_PRIORITY);
 
 //安装中断服务函数
 void DMA_IRQHandler (void)
@@ -399,7 +399,7 @@ void DMA_CameraInitConfig (unsigned long srcStartAddr, unsigned long dstStartAdd
     cfg.channelId = channel;                                                 //设置DMA通道
     cfg.channelInterruptEnabled = TRUE;
     cfg.channelInterruptPriority = DMA_PRIORITY;
-    cfg.channelInterruptTypeOfService = DMA_VECTABNUM;
+    cfg.channelInterruptTypeOfService = DMA_TypeOfService;
 
     /* 设置传输表述符 */
     cfg.destinationAddress = IFXCPU_GLB_ADDR_DSPR(IfxCpu_getCoreId(), dstStartAddr);

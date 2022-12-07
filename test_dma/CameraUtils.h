@@ -25,7 +25,7 @@
 #define  DMA_PRIORITY    255
 
 /** DMA中断服务函数优先级 中断归哪个内核管理？ 范围：0：CPU0   1：CPU1   3：DMA*/
-#define DMA_VECTABNUM 0
+#define DMA_TypeOfService 0
 
 /* GPIO模式 */
 #define PIN_MODE_OUTPUT          IfxPort_Mode_outputPushPullGeneral    /*!< 推挽输出  */
@@ -49,25 +49,25 @@
 #define PIN_INT0_PRIORITY    253
 
 /** GPIO外部中断 组0中断归哪个内核管理？ 范围：0：CPU0   1：CPU1   3：DMA*/
-#define PIN_INT0_VECTABNUM    0
+#define PIN_INT0_TypeOfService    0
 
 /** GPIO外部中断 组1中断服务函数优先级   范围：1-255   数字越大 优先级越高  注意优先级不要重复 */
 #define PIN_INT1_PRIORITY     101
 
 /** GPIO外部中断 组1中断归哪个内核管理？ 范围：0：CPU0   1：CPU1   3：DMA*/
-#define PIN_INT1_VECTABNUM    0
+#define PIN_INT1_TypeOfService    0
 
 /** GPIO外部中断 组2中断服务函数优先级   范围：1-255   数字越大 优先级越高  注意优先级不要重复  pixel clock  */
 #define PIN_INT2_PRIORITY     40
 
 /** GPIO外部中断 组2中断归哪个内核管理？ 范围：0：CPU0   1：CPU1   3：DMA*/
-#define PIN_INT2_VECTABNUM    3
+#define PIN_INT2_TypeOfService    3
 
 /** GPIO外部中断 组3中断服务函数优先级   范围：1-255   数字越大 优先级越高  注意优先级不要重复 */
 #define PIN_INT3_PRIORITY     100
 
 /** GPIO外部中断 组3中断归哪个内核管理？ 范围：0：CPU0   1：CPU1   3：DMA*/
-#define PIN_INT3_VECTABNUM    0
+#define PIN_INT3_TypeOfService    0
 
 /** 摄像头 数据采集完成标志位 */
 #define MT9V034_IMAGEH  120  /*!< 行 HEIGHT 待采集摄像头图像高度行数 */
@@ -197,10 +197,10 @@ void PIN_INT2_IRQHandler ();
 void PIN_INT3_IRQHandler ();
 
 // external interrupts
-IFX_INTERRUPT(PIN_INT0_IRQHandler, PIN_INT0_VECTABNUM, PIN_INT0_PRIORITY);
-IFX_INTERRUPT(PIN_INT1_IRQHandler, PIN_INT1_VECTABNUM, PIN_INT1_PRIORITY);
-IFX_INTERRUPT(PIN_INT2_IRQHandler, PIN_INT2_VECTABNUM, PIN_INT2_PRIORITY);
-IFX_INTERRUPT(PIN_INT3_IRQHandler, PIN_INT3_VECTABNUM, PIN_INT3_PRIORITY);
+IFX_INTERRUPT(PIN_INT0_IRQHandler, PIN_INT0_TypeOfService, PIN_INT0_PRIORITY);
+IFX_INTERRUPT(PIN_INT1_IRQHandler, PIN_INT1_TypeOfService, PIN_INT1_PRIORITY);
+IFX_INTERRUPT(PIN_INT2_IRQHandler, PIN_INT2_TypeOfService, PIN_INT2_PRIORITY);
+IFX_INTERRUPT(PIN_INT3_IRQHandler, PIN_INT3_TypeOfService, PIN_INT3_PRIORITY);
 
 /**
  * 摄像头 DMA 配置结构体
