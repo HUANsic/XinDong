@@ -1,11 +1,14 @@
 #include "../Inc/HUANsic_UART1_BLE.h"
+
+#include <IfxAsclin_Asc.h>
+
 #include "../Inc/XinDong_Config.h"
 #include "../Inc/CameraShenyan.h"
-;
-uint8 uart1_txBuffer[ASC_TX_BUFFER_SIZE + sizeof(Ifx_Fifo) + 8];		// idk why add the tail, but here it is
-uint8 uart1_rxBuffer[ASC_TX_BUFFER_SIZE + sizeof(Ifx_Fifo) + 8];
 
-void USER_uart1_rx_irq(void);
+unsigned char uart1_txBuffer[ASC_TX_BUFFER_SIZE + sizeof(Ifx_Fifo) + 8];		// idk why add the tail, but here it is
+unsigned char uart1_rxBuffer[ASC_TX_BUFFER_SIZE + sizeof(Ifx_Fifo) + 8];
+IfxAsclin_Asc uart1_ascmodule;
+extern uint8 g_ImageData[IMAGEH][IMAGEW];
 
 void uart1_init(){
 	IfxAsclin_Tx_Out *IfxAsclin_Tx = &IfxAsclin1_TX_P11_12_OUT;
@@ -35,51 +38,42 @@ void uart1_init(){
 	ascConfig.rxBufferSize = ASC_RX_BUFFER_SIZE;
 
 	// set up pins
-	IfxAsclin_Asc_Pins pins = {
-	NULL, IfxPort_InputMode_pullUp, /* CTS pin not used */
+	IfxAsclin_Asc_Pins pins = {0, IfxPort_InputMode_pullUp, /* CTS pin not used */
 	IfxAsclin_Rx, IfxPort_InputMode_pullUp, /* Rx pin */
-	NULL, IfxPort_OutputMode_pushPull, /* RTS pin not used */
+	0, IfxPort_OutputMode_pushPull, /* RTS pin not used */
 	IfxAsclin_Tx, IfxPort_OutputMode_pushPull, /* Tx pin */
 	IfxPort_PadDriver_cmosAutomotiveSpeed1};
 	ascConfig.pins = &pins;
 
 	// execute config method
-	IfxAsclin_Asc_initModule(&MODULE_ASCLIN1, &ascConfig);
+	IfxAsclin_Asc_initModule(&uart1_ascmodule, &ascConfig);
 }
 
 void uart1_dumpImage(){
-	uint16 j, i;
-	uint8 count = IMAGEW;
-	uint8 **ImageData = CAMERA_GetArray();
+	unsigned short j, i;
 
-	IfxAsclin_Asc_blockingWrite(&MODULE_ASCLIN1, 0xfe);
-	IfxAsclin_Asc_blockingWrite(&MODULE_ASCLIN1, 0xef);
+	IfxAsclin_Asc_blockingWrite(&uart1_ascmodule, 0xfe);
+	IfxAsclin_Asc_blockingWrite(&uart1_ascmodule, 0xef);
 
 	for(i = 0; i < IMAGEH; i++){
-		for(j = 0; j < IMAGEW; j++)
-			if(ImageData[i][j] == 0xfe) ImageData[i][j] = 0xff;
-
-		IfxAsclin_Asc_write(&MODULE_ASCLIN1, &ImageData[i][0], &count, TIME_INFINITE);  // just make it continuous instead of one by one
+		for(j = 0; j < IMAGEW; j++){
+			if(g_ImageData[i][j] == 0xfe) g_ImageData[i][j] = 0xff;
+			IfxAsclin_Asc_blockingWrite(&uart1_ascmodule, g_ImageData[i][j]);
+		}
 	}
 
-	IfxAsclin_Asc_blockingWrite(&MODULE_ASCLIN1, 0xef);
-	IfxAsclin_Asc_blockingWrite(&MODULE_ASCLIN1, 0xfe);
+	IfxAsclin_Asc_blockingWrite(&uart1_ascmodule, 0xef);
+	IfxAsclin_Asc_blockingWrite(&uart1_ascmodule, 0xfe);
 }
 
 void UART1_TX_IRQHandler(void){
-	IfxAsclin_Asc_isrTransmit(&MODULE_ASCLIN1);		// let the default method clear the flags
+	IfxAsclin_Asc_isrTransmit(&uart1_ascmodule);		// let the default method clear the flags
 }
 
 void UART1_ER_IRQHandler(void){
-	IfxAsclin_Asc_isrError(&MODULE_ASCLIN1);		// let the default method clear the flags
+	IfxAsclin_Asc_isrError(&uart1_ascmodule);		// let the default method clear the flags
 }
 
 void UART1_RX_IRQHandler(void){
-	USER_uart1_rx_irq();
-	// if no user function is defined, call the default one
-	IfxAsclin_Asc_isrReceive(&MODULE_ASCLIN1);
-}
-
-__weak__ void USER_uart1_rx_irq(void){
-	;
+	IfxAsclin_Asc_isrReceive(&uart1_ascmodule);
 }

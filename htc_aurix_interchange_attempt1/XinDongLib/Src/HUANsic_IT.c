@@ -1,5 +1,15 @@
 #include "../Inc/HUANsic_IT.h"
-#include "IfxDma.h"
+#include <IfxCpu.h>
+#include <IfxCpu_Irq.h>
+#include <IfxDma.h>
+#include <IfxDma_Dma.h>
+#include <IfxScuEru.h>
+#include <IfxSrc.h>
+#include <CompilerTasking.h>
+
+#include "XinDong_Config.h"
+#include "CameraShenyan.h"
+#include "HUANsic_UART1_BLE.h"
 
 // DMA interrupt
 IFX_INTERRUPT(DMA_IRQHandler, DMA_TypeOfService, DMA_PRIORITY);
@@ -14,23 +24,23 @@ IFX_INTERRUPT(PIN_INT3_IRQHandler, PIN_INT3_TypeOfService, PIN_INT3_PRIORITY);
 extern void encoder_irq();
 
 IfxDma_Dma_Channel camera_dma_channel;
+extern uint8 g_ImageData[IMAGEH][IMAGEW];
 
 void DMA_IRQHandler(void){
-	Camera_Flag++;
-	if(Camera_Flag == 2){
+	CAMERA_IncFlag();
+	if(CAMERA_GetFlag() == 2){
 		IfxDma_disableChannelTransaction(&MODULE_DMA, PIN_INT2_PRIORITY);
 	}else{
 		(IfxDma_Dma_getSrcPointer(&camera_dma_channel))->B.CLRR = 1;			// clear requests
 
 		IfxDma_setChannelDestinationAddress(&MODULE_DMA, PIN_INT2_PRIORITY,
-				(void*)IFXCPU_GLB_ADDR_DSPR(IfxCpu_getCoreId(), &Image_Data[60][0]));
+				(void*)IFXCPU_GLB_ADDR_DSPR(IfxCpu_getCoreId(), &g_ImageData[60][0]));
 	}
 }
 
 void PIN_INT0_IRQHandler(){
-	if(Camera_Flag == 0){
-		IfxDma_setChannelDestinationAddress(&MODULE_DMA, PIN_INT2_PRIORITY,
-				(void*)IFXCPU_GLB_ADDR_DSPR(IfxCpu_getCoreId(), Image_Data));
+	if(CAMERA_GetFlag() == 0){
+		IfxDma_setChannelDestinationAddress(&MODULE_DMA, PIN_INT2_PRIORITY,	(void*)IFXCPU_GLB_ADDR_DSPR(IfxCpu_getCoreId(), g_ImageData));
 
 		IfxDma_enableChannelTransaction(&MODULE_DMA, PIN_INT2_PRIORITY);
 	}
@@ -127,7 +137,7 @@ void camera_installInterrupts(){
 	cfg.channelInterruptEnabled = TRUE;
 	cfg.channelInterruptPriority = DMA_PRIORITY;
 	cfg.channelInterruptTypeOfService = DMA_TypeOfService;
-	cfg.destinationAddress = IFXCPU_GLB_ADDR_DSPR(IfxCpu_getCoreId(), Image_Data);
+	cfg.destinationAddress = IFXCPU_GLB_ADDR_DSPR(IfxCpu_getCoreId(), g_ImageData);
 	cfg.shadowAddress = 0;
 	cfg.transferCount = 11280;
 
@@ -180,5 +190,5 @@ void ble_installInterrupts(){
 
 void DMA_CameraStop(unsigned long channel){
 	IfxDma_disableChannelTransaction(&MODULE_DMA, channel);
-	Camera_Flag = 0;
+	CAMERA_ResetFlag();
 }

@@ -20,8 +20,10 @@ RM := rm -rf
 -include Libraries/iLLD/TC26B/Tricore/Mtu/Std/subdir.mk
 -include Libraries/iLLD/TC26B/Tricore/Gtm/Std/subdir.mk
 -include Libraries/iLLD/TC26B/Tricore/Dma/Std/subdir.mk
+-include Libraries/iLLD/TC26B/Tricore/Dma/Dma/subdir.mk
 -include Libraries/iLLD/TC26B/Tricore/Cpu/Trap/subdir.mk
 -include Libraries/iLLD/TC26B/Tricore/Cpu/Std/subdir.mk
+-include Libraries/iLLD/TC26B/Tricore/Cpu/Irq/subdir.mk
 -include Libraries/iLLD/TC26B/Tricore/Cpu/CStart/subdir.mk
 -include Libraries/iLLD/TC26B/Tricore/Asclin/Std/subdir.mk
 -include Libraries/iLLD/TC26B/Tricore/Asclin/Asc/subdir.mk

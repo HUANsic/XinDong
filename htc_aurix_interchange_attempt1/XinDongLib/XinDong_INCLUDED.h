@@ -7,3 +7,4 @@
 #include "./Inc/CameraShenyan.h"
 #include "Inc/HUANsic_IT.h"
 #include "Inc/HUANsic_UART1_BLE.h"
+#include "Ifx_Cfg.h"

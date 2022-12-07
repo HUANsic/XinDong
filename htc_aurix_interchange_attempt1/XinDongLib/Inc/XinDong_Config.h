@@ -1,7 +1,8 @@
 /**
  *
  */
-#include <stdint.h>
+#ifndef		__HUANSIC_XINDONG_CONFIG__
+#define		__HUANSIC_XINDONG_CONFIG__
 
 #define     DMA_PRIORITY            	255
 #define     DMA_TypeOfService           IfxSrc_Tos_cpu0
@@ -28,3 +29,6 @@
 
 #define MT9V034_SCL_PIN   P02_5
 #define MT9V034_SDA_PIN   P02_4
+
+
+#endif		// __HUANSIC_XINDONG_CONFIG__

@@ -8,10 +8,6 @@ c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_att
 c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/XinDongLib/Inc/CameraShenyan.h :
 c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/CameraShenyan.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/XinDongLib/Inc/XinDong_Config.h
 c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/XinDongLib/Inc/XinDong_Config.h :
-c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/CameraShenyan.o :	c:/Infineon/AURIX-Studio-1.7.2/plugins/com.infineon.aurix.tools_1.7.2/build_system/tools/Compilers/Tasking_1.1r8/ctc/include/stdint.h
-c:/Infineon/AURIX-Studio-1.7.2/plugins/com.infineon.aurix.tools_1.7.2/build_system/tools/Compilers/Tasking_1.1r8/ctc/include/stdint.h :
-c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/CameraShenyan.o :	c:/Infineon/AURIX-Studio-1.7.2/plugins/com.infineon.aurix.tools_1.7.2/build_system/tools/Compilers/Tasking_1.1r8/ctc/include/typeinfo.h
-c:/Infineon/AURIX-Studio-1.7.2/plugins/com.infineon.aurix.tools_1.7.2/build_system/tools/Compilers/Tasking_1.1r8/ctc/include/typeinfo.h :
 c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/CameraShenyan.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/_Lib/DataHandling/Ifx_Fifo.h
 c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/_Lib/DataHandling/Ifx_Fifo.h :
 c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/CameraShenyan.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Configurations/Ifx_Cfg.h

@@ -147,7 +147,7 @@ void PIN_InitConfig(GPIO_Name_t pin, IfxPort_Mode mode, unsigned char output){
 	}
 }
 
-uint8 PIN_Read(GPIO_Name_t pin){
+unsigned char PIN_Read(GPIO_Name_t pin){
 	Ifx_P *port = PIN_GetModule(pin);
 	unsigned char pinIndex = PIN_GetIndex(pin);
 	return IfxPort_getPinState(port, pinIndex);
@@ -640,7 +640,7 @@ void MT9V034_Init(unsigned char fps){
 /**********************************************************************/
 
 uint8 Camera_Flag = 0;
-uint8 Image_Data[IMAGEH][IMAGEW];
+uint8 g_ImageData[IMAGEH][IMAGEW];
 
 void CAMERA_Init(unsigned char fps){
 	PIN_InitConfig(P00_0, PIN_MODE_INPUT_PULLDOWN, 0);
@@ -663,6 +663,6 @@ void CAMERA_ResetFlag(void){
 	Camera_Flag = 0;
 }
 
-uint8** CAMERA_GetArray(void){
-	return Image_Data;
+void CAMERA_IncFlag(void){
+	Camera_Flag++;
 }

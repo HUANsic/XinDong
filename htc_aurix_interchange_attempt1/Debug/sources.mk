@@ -32,8 +32,10 @@ Libraries \
 Libraries/iLLD/TC26B/Tricore/Asclin/Asc \
 Libraries/iLLD/TC26B/Tricore/Asclin/Std \
 Libraries/iLLD/TC26B/Tricore/Cpu/CStart \
+Libraries/iLLD/TC26B/Tricore/Cpu/Irq \
 Libraries/iLLD/TC26B/Tricore/Cpu/Std \
 Libraries/iLLD/TC26B/Tricore/Cpu/Trap \
+Libraries/iLLD/TC26B/Tricore/Dma/Dma \
 Libraries/iLLD/TC26B/Tricore/Dma/Std \
 Libraries/iLLD/TC26B/Tricore/Gtm/Std \
 Libraries/iLLD/TC26B/Tricore/Mtu/Std \

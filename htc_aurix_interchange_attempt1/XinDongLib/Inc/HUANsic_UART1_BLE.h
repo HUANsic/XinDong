@@ -2,6 +2,7 @@
 #define		__HUANSIC_UART1_BLE__
 
 void uart1_init(void);
+
 void uart1_dumpImage(void);
 
 void UART1_TX_IRQHandler(void);

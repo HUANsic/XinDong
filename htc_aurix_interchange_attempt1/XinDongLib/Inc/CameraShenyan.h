@@ -22,10 +22,10 @@ void CAMERA_Init(unsigned char fps);
 
 void CAMERA_Reprot(void);
 
-uint8_t CAMERA_GetFlag(void);
+unsigned char CAMERA_GetFlag(void);
 
 void CAMERA_ResetFlag(void);
 
-uint8_t** CAMERA_GetArray(void);
+void CAMERA_IncFlag(void);
 
 #endif /* CAMERASHENYAN_H_ */
