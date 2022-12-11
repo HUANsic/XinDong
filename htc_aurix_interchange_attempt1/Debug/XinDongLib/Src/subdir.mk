@@ -5,22 +5,34 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../XinDongLib/Src/CameraShenyan.c \
+../XinDongLib/Src/HUANsic_Camera.c \
+../XinDongLib/Src/HUANsic_GPIO.c \
 ../XinDongLib/Src/HUANsic_IT.c \
+../XinDongLib/Src/HUANsic_Timers.c \
 ../XinDongLib/Src/HUANsic_UART1_BLE.c 
 
 OBJS += \
 ./XinDongLib/Src/CameraShenyan.o \
+./XinDongLib/Src/HUANsic_Camera.o \
+./XinDongLib/Src/HUANsic_GPIO.o \
 ./XinDongLib/Src/HUANsic_IT.o \
+./XinDongLib/Src/HUANsic_Timers.o \
 ./XinDongLib/Src/HUANsic_UART1_BLE.o 
 
 COMPILED_SRCS += \
 ./XinDongLib/Src/CameraShenyan.src \
+./XinDongLib/Src/HUANsic_Camera.src \
+./XinDongLib/Src/HUANsic_GPIO.src \
 ./XinDongLib/Src/HUANsic_IT.src \
+./XinDongLib/Src/HUANsic_Timers.src \
 ./XinDongLib/Src/HUANsic_UART1_BLE.src 
 
 C_DEPS += \
 ./XinDongLib/Src/CameraShenyan.d \
+./XinDongLib/Src/HUANsic_Camera.d \
+./XinDongLib/Src/HUANsic_GPIO.d \
 ./XinDongLib/Src/HUANsic_IT.d \
+./XinDongLib/Src/HUANsic_Timers.d \
 ./XinDongLib/Src/HUANsic_UART1_BLE.d 
 
 

@@ -116,15 +116,51 @@ c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_att
 c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/_Impl/IfxDma_cfg.h :
 c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Dma/Std/IfxDma.h
 c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Dma/Std/IfxDma.h :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Src/Std/IfxSrc.h
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Src/Std/IfxSrc.h :
 c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Scu/Std/IfxScuEru.h
 c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Scu/Std/IfxScuEru.h :
 c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/_PinMap/IfxScu_PinMap.h
 c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/_PinMap/IfxScu_PinMap.h :
-c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Src/Std/IfxSrc.h
-c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Src/Std/IfxSrc.h :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Stm/Std/IfxStm.h
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Stm/Std/IfxStm.h :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/_Impl/IfxStm_cfg.h
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/_Impl/IfxStm_cfg.h :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Cpu/Std/Ifx_Types.h
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Cpu/Std/Ifx_Types.h :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Scu/Std/IfxScuCcu.h
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Scu/Std/IfxScuCcu.h :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/Infra/Sfr/TC26B/_Reg/IfxCbs_reg.h
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/Infra/Sfr/TC26B/_Reg/IfxCbs_reg.h :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/Infra/Sfr/TC26B/_Reg/IfxCbs_regdef.h
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/Infra/Sfr/TC26B/_Reg/IfxCbs_regdef.h :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Gtm/Std/IfxGtm.h
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Gtm/Std/IfxGtm.h :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/_Impl/IfxGtm_cfg.h
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/_Impl/IfxGtm_cfg.h :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/Infra/Sfr/TC26B/_Reg/IfxGtm_reg.h
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/Infra/Sfr/TC26B/_Reg/IfxGtm_reg.h :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/Infra/Sfr/TC26B/_Reg/IfxGtm_regdef.h
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/Infra/Sfr/TC26B/_Reg/IfxGtm_regdef.h :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Port/Std/IfxPort.h
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Port/Std/IfxPort.h :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Gtm/Std/IfxGtm_Tim.h
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Gtm/Std/IfxGtm_Tim.h :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/_Impl/IfxGtm_cfg.h
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/_Impl/IfxGtm_cfg.h :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Gtm/Std/IfxGtm.h
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Gtm/Std/IfxGtm.h :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Gtm/Std/IfxGtm_Cmu.h
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Gtm/Std/IfxGtm_Cmu.h :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/_Impl/IfxGtm_cfg.h
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/_Impl/IfxGtm_cfg.h :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/Infra/Sfr/TC26B/_Reg/IfxGtm_bf.h
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/Infra/Sfr/TC26B/_Reg/IfxGtm_bf.h :
 c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/XinDongLib/Inc/XinDong_Config.h
 c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/XinDongLib/Inc/XinDong_Config.h :
-c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/XinDongLib/Inc/CameraShenyan.h
-c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/XinDongLib/Inc/CameraShenyan.h :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/XinDongLib/Inc/HUANsic_Camera.h
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/XinDongLib/Inc/HUANsic_Camera.h :
 c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/XinDongLib/Inc/HUANsic_UART1_BLE.h
 c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/XinDongLib/Inc/HUANsic_UART1_BLE.h :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/XinDongLib/Src/HUANsic_IT.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/XinDongLib/Inc/HUANsic_Timers.h
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/XinDongLib/Inc/HUANsic_Timers.h :

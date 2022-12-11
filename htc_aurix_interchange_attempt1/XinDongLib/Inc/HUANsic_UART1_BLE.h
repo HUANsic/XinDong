@@ -5,10 +5,20 @@ void uart1_init(void);
 
 void uart1_dumpImage(void);
 
-void UART1_TX_IRQHandler(void);
+unsigned char ble_readByte(void);
 
-void UART1_ER_IRQHandler(void);
+extern inline void ble_sendByte(unsigned char data);
 
-void UART1_RX_IRQHandler(void);
+/*
+ * 		METHODS BELOW ARE USED IN SYSTEM CALLS
+ *
+ * 		DO NOT CALL OR MODIFY UNLESS NECESSARY
+ */
+
+void INT_UART1_TX_IRQHandler(void);
+
+void INT_UART1_ER_IRQHandler(void);
+
+void INT_UART1_RX_IRQHandler(void);
 
 #endif		// __HUANSIC_UART1_BLE__

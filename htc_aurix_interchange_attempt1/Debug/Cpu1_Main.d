@@ -4,6 +4,8 @@
 
 c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/Cpu1_Main.o :	../Cpu1_Main.c
 ../Cpu1_Main.c :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/Cpu1_Main.o :	../XinDongLib/XinDong_INCLUDED.h
+../XinDongLib/XinDong_INCLUDED.h :
 c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/Cpu1_Main.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Cpu/Std/Ifx_Types.h
 c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Cpu/Std/Ifx_Types.h :
 c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/Cpu1_Main.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/Infra/Platform/Tricore/Compilers/Compilers.h
@@ -78,3 +80,13 @@ c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_att
 c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/Infra/Sfr/TC26B/_Reg/IfxPort_regdef.h :
 c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/Cpu1_Main.o :	c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Scu/Std/IfxScuWdt.h
 c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Libraries/iLLD/TC26B/Tricore/Scu/Std/IfxScuWdt.h :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/Cpu1_Main.o :	../XinDongLib/Inc/HUANsic_IT.h
+../XinDongLib/Inc/HUANsic_IT.h :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/Cpu1_Main.o :	../XinDongLib/Inc/HUANsic_Camera.h
+../XinDongLib/Inc/HUANsic_Camera.h :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/Cpu1_Main.o :	../XinDongLib/Inc/HUANsic_UART1_BLE.h
+../XinDongLib/Inc/HUANsic_UART1_BLE.h :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/Cpu1_Main.o :	../XinDongLib/Inc/HUANsic_GPIO.h
+../XinDongLib/Inc/HUANsic_GPIO.h :
+c:/Users/abcde/Documents/ShutDown/Tsinghua/XinDongRepo/htc_aurix_interchange_attempt1/Debug/Cpu1_Main.o :	../XinDongLib/Inc/HUANsic_Timers.h
+../XinDongLib/Inc/HUANsic_Timers.h :

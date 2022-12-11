@@ -1,75 +1,72 @@
 #include "../Inc/HUANsic_IT.h"
+
 #include <IfxCpu.h>
 #include <IfxCpu_Irq.h>
+#include <CompilerTasking.h>
 #include <IfxDma.h>
 #include <IfxDma_Dma.h>
-#include <IfxScuEru.h>
 #include <IfxSrc.h>
-#include <CompilerTasking.h>
+#include <IfxSrc_reg.h>
+#include <IfxSrc_regdef.h>
+#include <IfxScuEru.h>
+#include <IfxStm.h>
+#include <IfxGtm.h>
+#include <IfxGtm_Tim.h>
 
 #include "XinDong_Config.h"
-#include "CameraShenyan.h"
+#include "HUANsic_Camera.h"
 #include "HUANsic_UART1_BLE.h"
+#include "HUANsic_Timers.h"
 
+/* interrupt vector table */
 // DMA interrupt
-IFX_INTERRUPT(DMA_IRQHandler, DMA_TypeOfService, DMA_PRIORITY);
-
+IFX_INTERRUPT(INT_DMA_IRQHandler, INT_DMA_TypeOfService, INT_DMA_PRIORITY);
 // external interrupts
-IFX_INTERRUPT(PIN_INT0_IRQHandler, PIN_INT0_TypeOfService, PIN_INT0_PRIORITY);
-IFX_INTERRUPT(PIN_INT1_IRQHandler, PIN_INT1_TypeOfService, PIN_INT1_PRIORITY);
-IFX_INTERRUPT(PIN_INT2_IRQHandler, PIN_INT2_TypeOfService, PIN_INT2_PRIORITY);
-IFX_INTERRUPT(PIN_INT3_IRQHandler, PIN_INT3_TypeOfService, PIN_INT3_PRIORITY);
+IFX_INTERRUPT(INT_EXTI0_IRQHandler, INT_EXTI0_TypeOfService, INT_EXTI0_PRIORITY);
+IFX_INTERRUPT(INT_EXTI1_IRQHandler, INT_EXTI1_TypeOfService, INT_EXTI1_PRIORITY);
+IFX_INTERRUPT(INT_EXTI2_IRQHandler, INT_EXTI2_TypeOfService, INT_EXTI2_PRIORITY);
+IFX_INTERRUPT(INT_EXTI3_IRQHandler, INT_EXTI3_TypeOfService, INT_EXTI3_PRIORITY);
+// STM interrupt
+IFX_INTERRUPT(INT_STM0_IRQHandler, INT_STM0_TypeOfService, INT_STM0_Priority);
+// TIM interrupt
+IFX_INTERRUPT(INT_GTM_TIM0CH6_IRQHandler, INT_TIM0CH6_TypeOfService, INT_TIM0CH6_Priority);
+IFX_INTERRUPT(INT_GTM_TIM2CH0_IRQHandler, INT_TIM2CH0_TypeOfService, INT_TIM2CH0_Priority);
 
-// exported function prototype (uer defined)
-extern void encoder_irq();
-
-IfxDma_Dma_Channel camera_dma_channel;
+/* exported function prototype and variables */
 extern uint8 g_ImageData[IMAGEH][IMAGEW];
 
-void DMA_IRQHandler(void){
-	CAMERA_IncFlag();
-	if(CAMERA_GetFlag() == 2){
-		IfxDma_disableChannelTransaction(&MODULE_DMA, PIN_INT2_PRIORITY);
-	}else{
-		(IfxDma_Dma_getSrcPointer(&camera_dma_channel))->B.CLRR = 1;			// clear requests
+/* exported function prototype and variables (user defined) */
+extern void encoder_step(void);
+extern void periodicInterrupt_10ms(void);
+extern void periodicInterrupt_100ms(void);
+extern void periodicInterrupt_1s(void);
+extern void reed_triggered(void);
+extern void ultrasonic_gotNewValue(void);
 
-		IfxDma_setChannelDestinationAddress(&MODULE_DMA, PIN_INT2_PRIORITY,
-				(void*)IFXCPU_GLB_ADDR_DSPR(IfxCpu_getCoreId(), &g_ImageData[60][0]));
-	}
+/* private variables */
+IfxDma_Dma_Channel camera_dma_channel;
+IfxStm_CompareConfig stmCfg;
+uint32 timer_10msTicks;
+
+/* methods for the user to call */
+void stm0_installInterrupts(void){
+	IfxStm_initCompareConfig(&stmCfg);
+
+	stmCfg.triggerPriority = INT_STM0_Priority;
+	stmCfg.typeOfService = INT_STM0_TypeOfService;
+	stmCfg.ticks = IfxStm_getFrequency(&MODULE_STM0) * 10 / 1000;
+	IfxStm_initCompare(&MODULE_STM0, &stmCfg);
+
+	timer_10msTicks = 0;
 }
 
-void PIN_INT0_IRQHandler(){
-	if(CAMERA_GetFlag() == 0){
-		IfxDma_setChannelDestinationAddress(&MODULE_DMA, PIN_INT2_PRIORITY,	(void*)IFXCPU_GLB_ADDR_DSPR(IfxCpu_getCoreId(), g_ImageData));
-
-		IfxDma_enableChannelTransaction(&MODULE_DMA, PIN_INT2_PRIORITY);
-	}
-}
-
-void PIN_INT1_IRQHandler(){
-	;
-}
-
-void PIN_INT2_IRQHandler(){
-	;
-}
-
-void PIN_INT3_IRQHandler(){
-	encoder_irq();
-}
-
-/*
- * 		methods for the user to call
- */
-
-void camera_installInterrupts(){
+void camera_installInterrupts(void){
 	/*		VSYNC: INT0		*/
 	// set pin mode
 	IfxScuEru_initReqPin(&IfxScu_REQ13_P15_5_IN, IfxPort_InputMode_pullDown);
 
 	// set trigger edge
 	IfxScuEru_disableFallingEdgeDetection(IfxScuEru_InputChannel_0);
-	IfxScuEru_disableRisingEdgeDetection(IfxScuEru_InputChannel_0);
 	IfxScuEru_enableRisingEdgeDetection(IfxScuEru_InputChannel_0);		// rising edge trigger
 	IfxScuEru_enableAutoClear(IfxScuEru_InputChannel_0);
 
@@ -83,16 +80,15 @@ void camera_installInterrupts(){
 	IfxScuEru_setInterruptGatingPattern(IfxScuEru_OutputChannel_0, IfxScuEru_InterruptGatingPattern_alwaysActive);
 
 	// install interrupt
-	IfxSrc_init(&MODULE_SRC.SCU.SCU.ERU[0], PIN_INT0_TypeOfService, PIN_INT0_PRIORITY);
+	IfxSrc_init(&MODULE_SRC.SCU.SCU.ERU[0], INT_EXTI0_TypeOfService, INT_EXTI0_PRIORITY);
 	IfxSrc_enable(&MODULE_SRC.SCU.SCU.ERU[0]);
-	IfxCpu_Irq_installInterruptHandler(PIN_INT0_IRQHandler, PIN_INT0_PRIORITY);
+	IfxCpu_Irq_installInterruptHandler(INT_EXTI0_IRQHandler, INT_EXTI0_PRIORITY);
 
 	/*		PCLK: INT0		*/
 	// set pin mode
 	IfxScuEru_initReqPin(&IfxScu_REQ14_P02_1_IN, IfxPort_InputMode_pullUp);
 
 	// set trigger edge
-	IfxScuEru_disableFallingEdgeDetection(IfxScuEru_InputChannel_2);
 	IfxScuEru_disableRisingEdgeDetection(IfxScuEru_InputChannel_2);
 	IfxScuEru_enableFallingEdgeDetection(IfxScuEru_InputChannel_2);		// falling edge trigger
 	IfxScuEru_enableAutoClear(IfxScuEru_InputChannel_2);
@@ -107,9 +103,9 @@ void camera_installInterrupts(){
 	IfxScuEru_setInterruptGatingPattern(IfxScuEru_OutputChannel_2, IfxScuEru_InterruptGatingPattern_alwaysActive);
 
 	// install interrupt
-	IfxSrc_init(&MODULE_SRC.SCU.SCU.ERU[2], PIN_INT2_TypeOfService, PIN_INT2_PRIORITY);
+	IfxSrc_init(&MODULE_SRC.SCU.SCU.ERU[2], INT_EXTI2_TypeOfService, INT_EXTI2_PRIORITY);
 	IfxSrc_enable(&MODULE_SRC.SCU.SCU.ERU[2]);
-	IfxCpu_Irq_installInterruptHandler(PIN_INT2_IRQHandler, PIN_INT2_PRIORITY);
+	IfxCpu_Irq_installInterruptHandler(INT_EXTI2_IRQHandler, INT_EXTI2_PRIORITY);
 
 	/*		DMA		*/
 	// create module config
@@ -133,10 +129,10 @@ void camera_installInterrupts(){
 	cfg.sourceAddress = IFXCPU_GLB_ADDR_DSPR(IfxCpu_getCoreId(), (&(MODULE_P00.IN.U)));
 	cfg.sourceCircularBufferEnabled = TRUE;
 	cfg.sourceAddressCircularRange = IfxDma_ChannelIncrementCircular_none;
-	cfg.channelId = PIN_INT2_PRIORITY;
+	cfg.channelId = INT_EXTI2_PRIORITY;
 	cfg.channelInterruptEnabled = TRUE;
-	cfg.channelInterruptPriority = DMA_PRIORITY;
-	cfg.channelInterruptTypeOfService = DMA_TypeOfService;
+	cfg.channelInterruptPriority = INT_DMA_PRIORITY;
+	cfg.channelInterruptTypeOfService = INT_DMA_TypeOfService;
 	cfg.destinationAddress = IFXCPU_GLB_ADDR_DSPR(IfxCpu_getCoreId(), g_ImageData);
 	cfg.shadowAddress = 0;
 	cfg.transferCount = 11280;
@@ -150,21 +146,20 @@ void camera_installInterrupts(){
 
 	// clear flag and disable for now
 	IfxDma_Dma_getSrcPointer(&camera_dma_channel)->B.CLRR = 1;		// clear request
-	IfxDma_clearChannelInterrupt(&MODULE_DMA, PIN_INT2_PRIORITY);
-	IfxDma_disableChannelTransaction(&MODULE_DMA, PIN_INT2_PRIORITY);
+	IfxDma_clearChannelInterrupt(&MODULE_DMA, INT_EXTI2_PRIORITY);
+	IfxDma_disableChannelTransaction(&MODULE_DMA, INT_EXTI2_PRIORITY);
 
 	// install interrupt handler
-	IfxCpu_Irq_installInterruptHandler(DMA_IRQHandler, DMA_PRIORITY);
+	IfxCpu_Irq_installInterruptHandler(INT_DMA_IRQHandler, INT_DMA_PRIORITY);
 }
 
-void encoder_installInterrupt(){
+void encoder_installInterrupt(void){
 	// set pin mode
-	IfxScuEru_initReqPin(&IfxScu_REQ11_P20_9_IN, IfxPort_InputMode_pullDown);
+	IfxScuEru_initReqPin(&IfxScu_REQ11_P20_9_IN, IfxPort_InputMode_noPullDevice);
 
 	// set trigger edge
-	IfxScuEru_disableFallingEdgeDetection(IfxScuEru_InputChannel_3);
-	IfxScuEru_disableRisingEdgeDetection(IfxScuEru_InputChannel_3);
-	IfxScuEru_enableRisingEdgeDetection(IfxScuEru_InputChannel_3);		// rising edge trigger
+	IfxScuEru_enableRisingEdgeDetection(IfxScuEru_InputChannel_3);		// both edge trigger
+	IfxScuEru_enableFallingEdgeDetection(IfxScuEru_InputChannel_3);		// both edge trigger
 	IfxScuEru_enableAutoClear(IfxScuEru_InputChannel_3);
 
 	// connecting matrix
@@ -177,18 +172,161 @@ void encoder_installInterrupt(){
 	IfxScuEru_setInterruptGatingPattern(IfxScuEru_OutputChannel_3, IfxScuEru_InterruptGatingPattern_alwaysActive);
 
 	// install interrupt
-	IfxSrc_init(&MODULE_SRC.SCU.SCU.ERU[3], PIN_INT3_TypeOfService, PIN_INT3_PRIORITY);
+	IfxSrc_init(&MODULE_SRC.SCU.SCU.ERU[3], INT_EXTI3_TypeOfService, INT_EXTI3_PRIORITY);
 	IfxSrc_enable(&MODULE_SRC.SCU.SCU.ERU[3]);
-	IfxCpu_Irq_installInterruptHandler(PIN_INT3_IRQHandler, PIN_INT3_PRIORITY);
+	IfxCpu_Irq_installInterruptHandler(INT_EXTI3_IRQHandler, INT_EXTI3_PRIORITY);
 }
 
-void ble_installInterrupts(){
-	IfxCpu_Irq_installInterruptHandler(UART1_RX_IRQHandler, 130);
-	IfxCpu_Irq_installInterruptHandler(UART1_TX_IRQHandler, 131);
-	IfxCpu_Irq_installInterruptHandler(UART1_ER_IRQHandler, 132);
+void ble_installInterrupts(void){
+	IfxCpu_Irq_installInterruptHandler(INT_UART1_RX_IRQHandler, 130);
+	IfxCpu_Irq_installInterruptHandler(INT_UART1_TX_IRQHandler, 131);
+	IfxCpu_Irq_installInterruptHandler(INT_UART1_ER_IRQHandler, 132);
 }
 
-void DMA_CameraStop(unsigned long channel){
+void ultrasonic_installInterrupt(void){
+	IfxGtm_Tim_Ch_setNotificationMode(&MODULE_GTM.TIM[2].CH0, IfxGtm_IrqMode_pulseNotify);
+	IfxGtm_Tim_Ch_setChannelNotification(&MODULE_GTM.TIM[2].CH0, 1, 1, 0, 0);
+	IfxSrc_init(&(MODULE_SRC.GTM.GTM[0].TIM[2][0]), INT_TIM2CH0_TypeOfService, INT_TIM2CH0_Priority);
+	IfxSrc_enable(&(MODULE_SRC.GTM.GTM[0].TIM[2][0]));
+}
+
+void reed_installInterrupt(void){
+	IfxGtm_Tim_Ch_setNotificationMode(&MODULE_GTM.TIM[0].CH6, IfxGtm_IrqMode_pulseNotify);
+	IfxGtm_Tim_Ch_setChannelNotification(&MODULE_GTM.TIM[0].CH6, 1, 1, 0, 0);
+	IfxSrc_init(&(MODULE_SRC.GTM.GTM[0].TIM[0][6]), INT_TIM0CH6_TypeOfService, INT_TIM0CH6_Priority);
+	IfxSrc_enable(&(MODULE_SRC.GTM.GTM[0].TIM[0][6]));
+}
+
+// not introduced to users yet
+void tim_installInterrupts(void){
+	Ifx_SRC_SRCR *TPwmGtmTimChSrcR;
+
+	/* TIM channel interrupt configurations */
+	// Enable the NEWVAL and CNTOFLW events
+//	IfxGtm_Tim_Ch_setNotificationMode(&MODULE_GTM.TIM[0].CH1, IfxGtm_IrqMode_pulseNotify);
+//	IfxGtm_Tim_Ch_setChannelNotification(&MODULE_GTM.TIM[0].CH1, 1, 1, 0, 0);
+//	IfxGtm_Tim_Ch_setNotificationMode(&MODULE_GTM.TIM[0].CH2, IfxGtm_IrqMode_pulseNotify);
+//	IfxGtm_Tim_Ch_setChannelNotification(&MODULE_GTM.TIM[0].CH2, 1, 1, 0, 0);
+	IfxGtm_Tim_Ch_setNotificationMode(&MODULE_GTM.TIM[0].CH6, IfxGtm_IrqMode_pulseNotify);
+	IfxGtm_Tim_Ch_setChannelNotification(&MODULE_GTM.TIM[0].CH6, 1, 1, 0, 0);
+//	IfxGtm_Tim_Ch_setNotificationMode(&MODULE_GTM.TIM[1].CH3, IfxGtm_IrqMode_pulseNotify);
+//	IfxGtm_Tim_Ch_setChannelNotification(&MODULE_GTM.TIM[1].CH3, 1, 1, 0, 0);
+	IfxGtm_Tim_Ch_setNotificationMode(&MODULE_GTM.TIM[2].CH0, IfxGtm_IrqMode_pulseNotify);
+	IfxGtm_Tim_Ch_setChannelNotification(&MODULE_GTM.TIM[2].CH0, 1, 1, 0, 0);
+//	IfxGtm_Tim_Ch_setNotificationMode(&MODULE_GTM.TIM[2].CH5, IfxGtm_IrqMode_pulseNotify);
+//	IfxGtm_Tim_Ch_setChannelNotification(&MODULE_GTM.TIM[2].CH5, 1, 1, 0, 0);
+//	IfxGtm_Tim_Ch_setNotificationMode(&MODULE_GTM.TIM[2].CH6, IfxGtm_IrqMode_pulseNotify);
+//	IfxGtm_Tim_Ch_setChannelNotification(&MODULE_GTM.TIM[2].CH6, 1, 1, 0, 0);
+
+//	/* Get the Service Request Register pointer */
+//	TPwmGtmTimChSrcR = &(MODULE_SRC.GTM.GTM[0].TIM[0][1]);
+//	/* Initialize the service request register */
+//	IfxSrc_init(TPwmGtmTimChSrcR, INT_TIM0CH1_TypeOfService, INT_TIM0CH1_Priority);		// use CPU1
+//	/* Enable the TIM channel interrupt */
+//	IfxSrc_enable(TPwmGtmTimChSrcR);
+
+//	/* Get the Service Request Register pointer */
+//	TPwmGtmTimChSrcR = &(MODULE_SRC.GTM.GTM[0].TIM[0][2]);
+//	/* Initialize the service request register */
+//	IfxSrc_init(TPwmGtmTimChSrcR, INT_TIM0CH2_TypeOfService, INT_TIM0CH2_Priority);		// use CPU1
+//	/* Enable the TIM channel interrupt */
+//	IfxSrc_enable(TPwmGtmTimChSrcR);
+
+	/* Get the Service Request Register pointer */
+	TPwmGtmTimChSrcR = &(MODULE_SRC.GTM.GTM[0].TIM[0][6]);
+	/* Initialize the service request register */
+	IfxSrc_init(TPwmGtmTimChSrcR, INT_TIM0CH6_TypeOfService, INT_TIM0CH6_Priority);
+	/* Enable the TIM channel interrupt */
+	IfxSrc_enable(TPwmGtmTimChSrcR);
+
+//	/* Get the Service Request Register pointer */
+//	TPwmGtmTimChSrcR = &(MODULE_SRC.GTM.GTM[0].TIM[1][3]);
+//	/* Initialize the service request register */
+//	IfxSrc_init(TPwmGtmTimChSrcR, INT_TIM1CH3_TypeOfService, INT_TIM1CH3_Priority);  // use CPU1
+//	/* Enable the TIM channel interrupt */
+//	IfxSrc_enable(TPwmGtmTimChSrcR);
+
+	/* Get the Service Request Register pointer */
+	TPwmGtmTimChSrcR = &(MODULE_SRC.GTM.GTM[0].TIM[2][0]);
+	/* Initialize the service request register */
+	IfxSrc_init(TPwmGtmTimChSrcR, INT_TIM2CH0_TypeOfService, INT_TIM2CH0_Priority);
+	/* Enable the TIM channel interrupt */
+	IfxSrc_enable(TPwmGtmTimChSrcR);
+
+//	/* Get the Service Request Register pointer */
+//	TPwmGtmTimChSrcR = &(MODULE_SRC.GTM.GTM[0].TIM[2][5]);
+//	/* Initialize the service request register */
+//	IfxSrc_init(TPwmGtmTimChSrcR, INT_TIM2CH5_TypeOfService, INT_TIM2CH5_Priority);
+//	/* Enable the TIM channel interrupt */
+//	IfxSrc_enable(TPwmGtmTimChSrcR);
+
+//	/* Get the Service Request Register pointer */
+//	TPwmGtmTimChSrcR = &(MODULE_SRC.GTM.GTM[0].TIM[2][6]);
+//	/* Initialize the service request register */
+//	IfxSrc_init(TPwmGtmTimChSrcR, INT_TIM2CH6_TypeOfService, INT_TIM2CH6_Priority);
+//	/* Enable the TIM channel interrupt */
+//	IfxSrc_enable(TPwmGtmTimChSrcR);
+}
+
+void dma_CameraStop(unsigned long channel){
 	IfxDma_disableChannelTransaction(&MODULE_DMA, channel);
-	CAMERA_ResetFlag();
+	camera_resetFlag();
+}
+
+/* interrupt service routines */
+void INT_DMA_IRQHandler(void){
+	camera_incrementFlag();
+	if(camera_getFlag() == 2){
+		IfxDma_disableChannelTransaction(&MODULE_DMA, INT_EXTI2_PRIORITY);
+	}else{
+		IfxDma_Dma_getSrcPointer(&camera_dma_channel)->B.CLRR = 1;			// clear requests
+		IfxDma_setChannelDestinationAddress(&MODULE_DMA, INT_EXTI2_PRIORITY,
+				(void*)IFXCPU_GLB_ADDR_DSPR(IfxCpu_getCoreId(), &g_ImageData[60][0]));
+	}
+}
+
+void INT_EXTI0_IRQHandler(void){
+	if(camera_getFlag() == 0){
+		IfxDma_setChannelDestinationAddress(&MODULE_DMA, INT_EXTI2_PRIORITY,
+				(void*)IFXCPU_GLB_ADDR_DSPR(IfxCpu_getCoreId(), g_ImageData));
+		IfxDma_enableChannelTransaction(&MODULE_DMA, INT_EXTI2_PRIORITY);
+	}
+}
+
+void INT_EXTI1_IRQHandler(void){
+	;
+}
+
+void INT_EXTI2_IRQHandler(void){
+	;		// unused; pclk is directed to DMA
+}
+
+void INT_EXTI3_IRQHandler(void){
+	encoder_step();
+}
+
+void INT_STM0_IRQHandler(void){
+	IfxStm_clearCompareFlag(&MODULE_STM0, stmCfg.comparator);
+	IfxStm_increaseCompare(&MODULE_STM0, stmCfg.comparator, IfxStm_getFrequency(&MODULE_STM0) * 10 / 1000);
+
+	timer_10msTicks++;
+
+	periodicInterrupt_10ms();
+	if(!(timer_10msTicks % 10)) periodicInterrupt_100ms();
+	if(!(timer_10msTicks % 100)) periodicInterrupt_1s();
+}
+
+void INT_GTM_TIM0CH6_IRQHandler(void){
+	if(MODULE_GTM.TIM[0].CH6.IRQ_NOTIFY.B.NEWVAL == 1){
+		MODULE_GTM.TIM[0].CH6.IRQ_NOTIFY.B.NEWVAL = 1;
+		reed_triggered();
+	}
+}
+
+void INT_GTM_TIM2CH0_IRQHandler(void){
+	if(MODULE_GTM.TIM[2].CH0.IRQ_NOTIFY.B.NEWVAL == 1){
+		MODULE_GTM.TIM[2].CH0.IRQ_NOTIFY.B.NEWVAL = 1;
+		ultrasonic_setPulseWidth(MODULE_GTM.TIM[2].CH0.GPR0.B.GPR0);
+		ultrasonic_gotNewValue();
+	}
 }

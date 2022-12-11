@@ -5,12 +5,20 @@
 #include "../Inc/XinDong_Config.h"
 #include "../Inc/CameraShenyan.h"
 
-unsigned char uart1_txBuffer[ASC_TX_BUFFER_SIZE + sizeof(Ifx_Fifo) + 8];		// idk why add the tail, but here it is
-unsigned char uart1_rxBuffer[ASC_TX_BUFFER_SIZE + sizeof(Ifx_Fifo) + 8];
+#if XINDONG_USE_BLUETOOTH
+#define UART1_BAUD 9600			// connected to bluetooth module
+#else
+#define UART1_BAUD 115200		// used as serial port to send image to computer
+#endif		// XINDONG_USE_BLUETOOTH
+
+/* private variables */
+uint8 uart1_txBuffer[ASC_TX_BUFFER_SIZE + sizeof(Ifx_Fifo) + 8];		// idk why add the tail, but here it is
+uint8 uart1_rxBuffer[ASC_TX_BUFFER_SIZE + sizeof(Ifx_Fifo) + 8];
 IfxAsclin_Asc uart1_ascmodule;
 extern uint8 g_ImageData[IMAGEH][IMAGEW];
 
-void uart1_init(){
+/* methods for the user to call */
+void uart1_init(void){
 	IfxAsclin_Tx_Out *IfxAsclin_Tx = &IfxAsclin1_TX_P11_12_OUT;
 	IfxAsclin_Rx_In *IfxAsclin_Rx = &IfxAsclin1_RXE_P11_10_IN;
 
@@ -18,7 +26,7 @@ void uart1_init(){
 	IfxAsclin_Asc_Config ascConfig;
 	IfxAsclin_Asc_initModuleConfig(&ascConfig, IfxAsclin_Tx->module);		// give default values
 	// add parameters that mostly is already set up just in case
-	ascConfig.baudrate.baudrate = (float)115200;
+	ascConfig.baudrate.baudrate = (float32)UART1_BAUD;
 	ascConfig.frame.frameMode = IfxAsclin_FrameMode_asc;
 	ascConfig.frame.dataLength = IfxAsclin_DataLength_8;
 	ascConfig.frame.stopBit = IfxAsclin_StopBit_1;
@@ -49,8 +57,8 @@ void uart1_init(){
 	IfxAsclin_Asc_initModule(&uart1_ascmodule, &ascConfig);
 }
 
-void uart1_dumpImage(){
-	unsigned short j, i;
+void uart1_dumpImage(void){
+	uint16 j, i;
 
 	IfxAsclin_Asc_blockingWrite(&uart1_ascmodule, 0xfe);
 	IfxAsclin_Asc_blockingWrite(&uart1_ascmodule, 0xef);
@@ -66,14 +74,25 @@ void uart1_dumpImage(){
 	IfxAsclin_Asc_blockingWrite(&uart1_ascmodule, 0xfe);
 }
 
-void UART1_TX_IRQHandler(void){
+uint8 ble_readByte(void){
+	if(IfxAsclin_Asc_getReadCount(&uart1_ascmodule) > 0) return IfxAsclin_Asc_blockingRead(&uart1_ascmodule);
+
+	return 0;
+}
+
+inline void ble_sendByte(uint8 data){
+	IfxAsclin_Asc_blockingWrite(&uart1_ascmodule, data);
+}
+
+/* interrupt service routines */
+void INT_UART1_TX_IRQHandler(void){
 	IfxAsclin_Asc_isrTransmit(&uart1_ascmodule);		// let the default method clear the flags
 }
 
-void UART1_ER_IRQHandler(void){
+void INT_UART1_ER_IRQHandler(void){
 	IfxAsclin_Asc_isrError(&uart1_ascmodule);		// let the default method clear the flags
 }
 
-void UART1_RX_IRQHandler(void){
+void INT_UART1_RX_IRQHandler(void){
 	IfxAsclin_Asc_isrReceive(&uart1_ascmodule);
 }

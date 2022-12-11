@@ -186,6 +186,9 @@ void PIN_Reverse(GPIO_Name_t pin){
 /****************************SCCB related******************************/
 /**********************************************************************/
 
+#define		MT9V034_SCL_PIN				P02_5
+#define		MT9V034_SDA_PIN				P02_4
+
 #define MT9V034_SCL_Out   PIN_Dir(MT9V034_SCL_PIN, 1)
 #define MT9V034_SDA_Out   PIN_Dir(MT9V034_SDA_PIN, 1)
 #define MT9V034_SDA_In    PIN_Dir(MT9V034_SDA_PIN, 0)
