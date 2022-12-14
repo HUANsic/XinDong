@@ -153,7 +153,6 @@
 
 #define CAMERA_EXPOSURE_TIME  150
 
-
 /* private function prototypes */
 static inline void SDA_OUT(void);
 static inline void SDA_IN(void);
@@ -172,10 +171,8 @@ static uint8 SCCB_ReadByte(uint8 ack);
 static void SCCB_RegWrite(uint8 reg, uint16 data);
 static uint16 SCCB_RegRead(uint8 reg);
 
-
 /* private variables */
 uint8 __camera_flag;
-
 
 /* methods for the user to call */
 void camera_init(void){
@@ -266,22 +263,21 @@ void camera_init(void){
 	SCCB_RegWrite(MT9V034_AGC_AEC_DESIRED_BIN_REG, CAMERA_AUTO_EXPOSURE_BRIGHTNESS);
 }
 
-inline uint8 camera_hasImage(void){
+uint8 camera_hasImage(void){
 	return __camera_flag == 2;
 }
 
-inline uint8 camera_getFlag(void){
+uint8 camera_getFlag(void){
 	return __camera_flag;
 }
 
-inline void camera_resetFlag(void){
+void camera_resetFlag(void){
 	__camera_flag = 0;
 }
 
-inline void camera_incrementFlag(void){
+void camera_incrementFlag(void){
 	__camera_flag++;
 }
-
 
 /* SCCB functional units */
 static inline void SDA_OUT(void){
