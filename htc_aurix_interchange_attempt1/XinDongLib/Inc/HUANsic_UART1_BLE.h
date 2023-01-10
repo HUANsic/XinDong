@@ -7,7 +7,7 @@ void uart1_dumpImage(void);
 
 unsigned char ble_readByte(void);
 
-extern inline void ble_sendByte(unsigned char data);
+void ble_sendByte(unsigned char data);
 
 /*
  * 		METHODS BELOW ARE USED IN SYSTEM CALLS

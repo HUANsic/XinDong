@@ -80,7 +80,7 @@ uint8 ble_readByte(void){
 	return 0;
 }
 
-inline void ble_sendByte(uint8 data){
+void ble_sendByte(uint8 data){
 	IfxAsclin_Asc_blockingWrite(&uart1_ascmodule, data);
 }
 

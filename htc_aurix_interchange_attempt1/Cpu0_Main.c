@@ -41,6 +41,17 @@ int core0_main(void){
 	IfxCpu_emitEvent(&g_cpuSyncEvent);
 	IfxCpu_waitEvent(&g_cpuSyncEvent, 1);
 
+	/* User Code Begin 1 */
+	gpio_init();
+//	ultrasonic_trigger();
+//	encoder_init();
+//	gtm_init();
+//	tim_init();
+//	tom_initServo();
+//	tom_initMotor();
+//	uart1_init();
+//	camera_init();
+
 	while(1){
 
 	}
@@ -49,24 +60,40 @@ int core0_main(void){
 
 void encoder_step(void){
 	__asm("NOP");
-}
-
-void periodicInterrupt_10ms(void){
+	__asm("NOP");
 	__asm("NOP");
 }
 
+void periodicInterrupt_10ms(void){
+//	__asm("NOP");
+//	__asm("NOP");
+//	__asm("NOP");
+	gpio_setLED1(gpio_readDIP1());
+	gpio_setLED2(gpio_readDIP2());
+	gpio_setLED3(gpio_readDIP3());
+	gpio_setLED4(gpio_readDIP4());
+}
+
 void periodicInterrupt_100ms(void){
+	__asm("NOP");
+	__asm("NOP");
 	__asm("NOP");
 }
 
 void periodicInterrupt_1s(void){
 	__asm("NOP");
+	__asm("NOP");
+	__asm("NOP");
 }
 
 void reed_triggered(void){
 	__asm("NOP");
+	__asm("NOP");
+	__asm("NOP");
 }
 
 void ultrasonic_gotNewValue(void){
+	__asm("NOP");
+	__asm("NOP");
 	__asm("NOP");
 }
