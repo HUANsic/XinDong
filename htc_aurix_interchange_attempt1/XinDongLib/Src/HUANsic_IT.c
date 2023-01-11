@@ -180,7 +180,7 @@ void camera_installInterrupts(void){
 	cfg.shadowControl = IfxDma_ChannelShadow_none;
 	cfg.operationMode = IfxDma_ChannelOperationMode_continuous;
 	cfg.hardwareRequestEnabled = TRUE;
-	cfg.sourceAddress = IFXCPU_GLB_ADDR_DSPR(IfxCpu_getCoreId(), (&(MODULE_P00.IN.U)));
+	cfg.sourceAddress = IFXCPU_GLB_ADDR_DSPR(IfxCpu_getCoreId(), &MODULE_P00.IN.U);
 	cfg.sourceCircularBufferEnabled = TRUE;
 	cfg.sourceAddressCircularRange = IfxDma_ChannelIncrementCircular_none;
 	cfg.channelId = INT_EXTI2_PRIORITY;

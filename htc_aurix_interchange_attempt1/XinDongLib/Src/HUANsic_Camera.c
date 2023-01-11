@@ -180,22 +180,32 @@ void camera_init(void){
 	/* initialize pins */
 	// Camera Interface
 	IfxPort_setPinMode(&MODULE_P00, 0, IfxPort_Mode_inputNoPullDevice);
+	IfxPort_setPinPadDriver(&MODULE_P00, 0, IfxPort_PadDriver_cmosAutomotiveSpeed2);
 	IfxPort_setPinMode(&MODULE_P00, 1, IfxPort_Mode_inputNoPullDevice);
+	IfxPort_setPinPadDriver(&MODULE_P00, 1, IfxPort_PadDriver_cmosAutomotiveSpeed2);
 	IfxPort_setPinMode(&MODULE_P00, 2, IfxPort_Mode_inputNoPullDevice);
+	IfxPort_setPinPadDriver(&MODULE_P00, 2, IfxPort_PadDriver_cmosAutomotiveSpeed2);
 	IfxPort_setPinMode(&MODULE_P00, 3, IfxPort_Mode_inputNoPullDevice);
+	IfxPort_setPinPadDriver(&MODULE_P00, 3, IfxPort_PadDriver_cmosAutomotiveSpeed2);
 	IfxPort_setPinMode(&MODULE_P00, 4, IfxPort_Mode_inputNoPullDevice);
+	IfxPort_setPinPadDriver(&MODULE_P00, 4, IfxPort_PadDriver_cmosAutomotiveSpeed2);
 	IfxPort_setPinMode(&MODULE_P00, 5, IfxPort_Mode_inputNoPullDevice);
+	IfxPort_setPinPadDriver(&MODULE_P00, 5, IfxPort_PadDriver_cmosAutomotiveSpeed2);
 	IfxPort_setPinMode(&MODULE_P00, 6, IfxPort_Mode_inputNoPullDevice);
+	IfxPort_setPinPadDriver(&MODULE_P00, 6, IfxPort_PadDriver_cmosAutomotiveSpeed2);
 	IfxPort_setPinMode(&MODULE_P00, 7, IfxPort_Mode_inputNoPullDevice);
+	IfxPort_setPinPadDriver(&MODULE_P00, 7, IfxPort_PadDriver_cmosAutomotiveSpeed2);
 	IfxPort_setPinMode(&MODULE_P15, 5, IfxPort_InputMode_pullDown);
+	IfxPort_setPinPadDriver(&MODULE_P15, 5, IfxPort_PadDriver_cmosAutomotiveSpeed2);
 	IfxPort_setPinMode(&MODULE_P02, 1, IfxPort_InputMode_pullUp);
+	IfxPort_setPinPadDriver(&MODULE_P02, 1, IfxPort_PadDriver_cmosAutomotiveSpeed2);
 	// SCCB
 	IfxPort_setPinMode(&MODULE_P02, 4, IfxPort_Mode_outputOpenDrainGeneral);
-	IfxPort_setPinMode(&MODULE_P02, 5, IfxPort_Mode_outputPushPullGeneral);
 	IfxPort_setPinPadDriver(&MODULE_P02, 4, IfxPort_PadDriver_cmosAutomotiveSpeed1);
+	IfxPort_setPinMode(&MODULE_P02, 5, IfxPort_Mode_outputPushPullGeneral);
 	IfxPort_setPinPadDriver(&MODULE_P02, 5, IfxPort_PadDriver_cmosAutomotiveSpeed1);
-	IfxPort_setPinState(&MODULE_P02, 4, IfxPort_State_high);
-	IfxPort_setPinState(&MODULE_P02, 5, IfxPort_State_high);
+	SDA_HIGH();
+	SCL_HIGH();
 
 	/* configuration via SCCB */
 	uint16 data;

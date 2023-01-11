@@ -30,8 +30,6 @@ IfxCpu_syncEvent g_cpuSyncEvent = 0;
 uint8 temp;
 
 int core0_main(void){
-	IfxCpu_enableInterrupts();
-
 	/* !!WATCHDOG0 AND SAFETY WATCHDOG ARE DISABLED HERE!!
 	 * Enable the watchdogs and service them periodically if it is required
 	 */
@@ -41,6 +39,9 @@ int core0_main(void){
 	/* Wait for CPU sync event */
 	IfxCpu_emitEvent(&g_cpuSyncEvent);
 	IfxCpu_waitEvent(&g_cpuSyncEvent, 1);
+
+	// disable the interrupts
+	IfxCpu_disableInterrupts();
 
 	/* User Code Begin 1 */
 	gpio_init();
@@ -61,13 +62,13 @@ int core0_main(void){
 //	reed_installInterrupt();
 //	tim_installInterrupts();
 
+// enable the interrupts
 	IfxCpu_enableInterrupts();
 
 	while(1){
 		temp = camera_getFlag();
 		if(temp == 2){
 			IfxPort_togglePin(&MODULE_P33, 11);
-			IfxPort_setPinState(&MODULE_P33, 12, temp ? IfxPort_State_low : IfxPort_State_high);
 		}
 		delay_ms(10);
 	}
@@ -75,11 +76,11 @@ int core0_main(void){
 }
 
 void encoder_step(void){
-	__asm("NOP"); __asm("NOP"); __asm("NOP");
+	__asm("NOP");__asm("NOP");__asm("NOP");
 }
 
 void periodicInterrupt_10ms(void){
-	__asm("NOP"); __asm("NOP"); __asm("NOP");
+	__asm("NOP");__asm("NOP");__asm("NOP");
 //    gpio_setLED1(gpio_readDIP1());
 //    gpio_setLED2(gpio_readDIP2());
 //    gpio_setLED3(gpio_readDIP3());
@@ -87,19 +88,19 @@ void periodicInterrupt_10ms(void){
 }
 
 void periodicInterrupt_100ms(void){
-	__asm("NOP"); __asm("NOP");__asm("NOP");
+	__asm("NOP");__asm("NOP");__asm("NOP");
 }
 
 void periodicInterrupt_1s(void){
-	__asm("NOP"); __asm("NOP");__asm("NOP");
+	__asm("NOP");__asm("NOP");__asm("NOP");
 
 	IfxPort_togglePin(&MODULE_P33, 10);
 }
 
 void reed_triggered(void){
-	__asm("NOP"); __asm("NOP");__asm("NOP");
+	__asm("NOP");__asm("NOP");__asm("NOP");
 }
 
 void ultrasonic_gotNewValue(void){
-	__asm("NOP"); __asm("NOP");__asm("NOP");
+	__asm("NOP");__asm("NOP");__asm("NOP");
 }
