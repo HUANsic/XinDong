@@ -173,6 +173,7 @@ static uint16 SCCB_RegRead(uint8 reg);
 
 /* private variables */
 uint8 __camera_flag;
+uint8 g_ImageData[IMAGEH][IMAGEW];
 
 /* methods for the user to call */
 void camera_init(void){
@@ -189,7 +190,7 @@ void camera_init(void){
 	IfxPort_setPinMode(&MODULE_P15, 5, IfxPort_InputMode_pullDown);
 	IfxPort_setPinMode(&MODULE_P02, 1, IfxPort_InputMode_pullUp);
 	// SCCB
-	IfxPort_setPinMode(&MODULE_P02, 4, IfxPort_Mode_outputPushPullGeneral);
+	IfxPort_setPinMode(&MODULE_P02, 4, IfxPort_Mode_outputOpenDrainGeneral);
 	IfxPort_setPinMode(&MODULE_P02, 5, IfxPort_Mode_outputPushPullGeneral);
 	IfxPort_setPinPadDriver(&MODULE_P02, 4, IfxPort_PadDriver_cmosAutomotiveSpeed1);
 	IfxPort_setPinPadDriver(&MODULE_P02, 5, IfxPort_PadDriver_cmosAutomotiveSpeed1);
@@ -200,7 +201,8 @@ void camera_init(void){
 	uint16 data;
 
 	// check ID
-	if(SCCB_RegRead(MT9V034_CHIP_VERSION) != MT9V034_CHIP_ID){
+	data = SCCB_RegRead(MT9V034_CHIP_VERSION);
+	if(data != MT9V034_CHIP_ID){
 		while(1)
 			;
 	}
@@ -316,42 +318,46 @@ static inline void SCCB_Wait(void){
 }
 
 static void SCCB_Start(void){
-	SDA_OUT();
 	SCL_HIGH();		// already high in any case, but force it anyway
 	SDA_HIGH();
+	SDA_OUT();
 	SCCB_Wait();
 	SDA_LOW();		// SDA falls when SCL is high
 	SCCB_Wait();
+	SCL_LOW();		// SCL then falls
+	// no waiting
 }
 
 static void SCCB_Stop(void){
-	SDA_OUT();
-	SCL_HIGH();		// already high in any case, but force it anyway
+	SCL_LOW();		// already low in any case, but force it anyway
 	SDA_LOW();
+	SDA_OUT();		// SDA must be low when SCL rises
 	SCCB_Wait();
-	SDA_HIGH();		// SDA rises when SCL is high
+	SCL_HIGH();		// SCL rises first
+	SCCB_Wait();
+	SDA_HIGH();		// SDA then rises when SCL is high
+	SDA_IN();		// release the line immediately
 	SCCB_Wait();
 }
 
 static void SCCB_SendBit(uint8 bit){
-	SCCB_Wait();	// to make SCL 50% DC
-	SCL_LOW();		// SCL falls
 	SCCB_Wait();
-	if(bit) SDA_HIGH();
+	if(bit) SDA_HIGH();		// switch SDA while SCL is low
 	else SDA_LOW();
 	SCCB_Wait();
 	SCL_HIGH();		// SCL rises
 	SCCB_Wait();
+	SCL_LOW();		// SCL falls; make sure nothing happens in between for safety
+	// no waiting
 }
 
 static uint8 SCCB_ReadBit(void){
 	uint8 retState;
-	SCCB_Wait();	// to make SCL 50% DC
-	SCL_LOW();		// SCL falls
-	SCCB_Wait();
-	retState = SDA_VALUE();
 	SCCB_Wait();
 	SCL_HIGH();		// SCL rises
+	retState = SDA_VALUE();		// read SDA at the same time
+	SCCB_Wait();
+	SCL_LOW();		// SCL falls; make sure nothing happens in between for safety
 	SCCB_Wait();
 	return retState;
 }

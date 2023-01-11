@@ -27,6 +27,7 @@
 #include "XinDongLib/XinDong_INCLUDED.h"
 
 IfxCpu_syncEvent g_cpuSyncEvent = 0;
+uint8 temp;
 
 int core0_main(void){
 	IfxCpu_enableInterrupts();
@@ -45,55 +46,60 @@ int core0_main(void){
 	gpio_init();
 //	ultrasonic_trigger();
 //	encoder_init();
-//	gtm_init();
+	gtm_init();
 //	tim_init();
 //	tom_initServo();
 //	tom_initMotor();
-//	uart1_init();
-//	camera_init();
+	uart1_init();
+	camera_init();
+
+	stm0_installInterrupts();
+	camera_installInterrupts();
+//	encoder_installInterrupt();
+//	ble_installInterrupts();
+//	ultrasonic_installInterrupt();
+//	reed_installInterrupt();
+//	tim_installInterrupts();
+
+	IfxCpu_enableInterrupts();
 
 	while(1){
-
+		temp = camera_getFlag();
+		if(temp == 2){
+			IfxPort_togglePin(&MODULE_P33, 11);
+			IfxPort_setPinState(&MODULE_P33, 12, temp ? IfxPort_State_low : IfxPort_State_high);
+		}
+		delay_ms(10);
 	}
 	return (1);
 }
 
 void encoder_step(void){
-	__asm("NOP");
-	__asm("NOP");
-	__asm("NOP");
+	__asm("NOP"); __asm("NOP"); __asm("NOP");
 }
 
 void periodicInterrupt_10ms(void){
-//	__asm("NOP");
-//	__asm("NOP");
-//	__asm("NOP");
-	gpio_setLED1(gpio_readDIP1());
-	gpio_setLED2(gpio_readDIP2());
-	gpio_setLED3(gpio_readDIP3());
-	gpio_setLED4(gpio_readDIP4());
+	__asm("NOP"); __asm("NOP"); __asm("NOP");
+//    gpio_setLED1(gpio_readDIP1());
+//    gpio_setLED2(gpio_readDIP2());
+//    gpio_setLED3(gpio_readDIP3());
+//    gpio_setLED4(gpio_readDIP4());
 }
 
 void periodicInterrupt_100ms(void){
-	__asm("NOP");
-	__asm("NOP");
-	__asm("NOP");
+	__asm("NOP"); __asm("NOP");__asm("NOP");
 }
 
 void periodicInterrupt_1s(void){
-	__asm("NOP");
-	__asm("NOP");
-	__asm("NOP");
+	__asm("NOP"); __asm("NOP");__asm("NOP");
+
+	IfxPort_togglePin(&MODULE_P33, 10);
 }
 
 void reed_triggered(void){
-	__asm("NOP");
-	__asm("NOP");
-	__asm("NOP");
+	__asm("NOP"); __asm("NOP");__asm("NOP");
 }
 
 void ultrasonic_gotNewValue(void){
-	__asm("NOP");
-	__asm("NOP");
-	__asm("NOP");
+	__asm("NOP"); __asm("NOP");__asm("NOP");
 }

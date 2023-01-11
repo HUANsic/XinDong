@@ -3,7 +3,7 @@
 #include <IfxAsclin_Asc.h>
 
 #include "../Inc/XinDong_Config.h"
-#include "../Inc/CameraShenyan.h"
+#include "../Inc/HUANsic_Camera.h"
 
 #if XINDONG_USE_BLUETOOTH
 #define UART1_BAUD 9600			// connected to bluetooth module

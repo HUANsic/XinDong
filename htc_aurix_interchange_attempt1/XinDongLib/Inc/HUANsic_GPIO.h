@@ -43,19 +43,35 @@ inline unsigned char gpio_readKey2(void){
 }
 
 inline void gpio_setLED1(unsigned char state){
-	IfxPort_setPinState(&MODULE_P33, 8, state ? 0 : 1);
+	IfxPort_setPinState(&MODULE_P33, 8, state ? IfxPort_State_low : IfxPort_State_high);
 }
 
 inline void gpio_setLED2(unsigned char state){
-	IfxPort_setPinState(&MODULE_P33, 9, state ? 0 : 1);
+	IfxPort_setPinState(&MODULE_P33, 9, state ? IfxPort_State_low : IfxPort_State_high);
 }
 
 inline void gpio_setLED3(unsigned char state){
-	IfxPort_setPinState(&MODULE_P33, 10, state ? 0 : 1);
+	IfxPort_setPinState(&MODULE_P33, 10, state ? IfxPort_State_low : IfxPort_State_high);
 }
 
 inline void gpio_setLED4(unsigned char state){
-	IfxPort_setPinState(&MODULE_P33, 11, state ? 0 : 1);
+	IfxPort_setPinState(&MODULE_P33, 11, state ? IfxPort_State_low : IfxPort_State_high);
+}
+
+inline void gpio_toggleLED1(){
+	gpio_setLED1(IfxPort_getPinState(&MODULE_P33, 8));
+}
+
+inline void gpio_toggleLED2(){
+	gpio_setLED2(IfxPort_getPinState(&MODULE_P33, 9));
+}
+
+inline void gpio_toggleLED3(){
+	gpio_setLED3(IfxPort_getPinState(&MODULE_P33, 10));
+}
+
+inline void gpio_toggleLED4(){
+	gpio_setLED4(IfxPort_getPinState(&MODULE_P33, 11));
 }
 
 #endif		// __HUANSIC_GPIO__

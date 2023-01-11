@@ -3,7 +3,7 @@
 
 #define		XINDONG_USE_BLUETOOTH		0
 
-#define     INT_DMA_PRIORITY            255
+#define     INT_DMA_PRIORITY            254
 #define     INT_DMA_TypeOfService       IfxSrc_Tos_cpu0
 
 #define 	INT_EXTI0_PRIORITY    		253
@@ -23,7 +23,7 @@
 #define		INT_UART1_ERR_Priority		132
 #define		INT_UART1_TypeOfService		IfxSrc_Tos_cpu0
 
-#define		INT_STM0_Priority			40
+#define		INT_STM0_Priority			30
 #define		INT_STM0_TypeOfService		IfxSrc_Tos_cpu0
 
 //#define		INT_TIM0CH1_Priority		13				// pclk via TIM
