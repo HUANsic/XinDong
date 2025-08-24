@@ -1,0 +1,9 @@
+[submodule "XinDong-TC377TX"]
+	path = XinDong-TC377TX
+	url = git@github.com:HUANsic/XinDong-TC377TX.git
+[submodule "XinDong-Android"]
+	path = XinDong-Android
+	url = git@github.com:HUANsic/XinDong-Android.git
+[submodule "XinDong-PC"]
+	path = XinDong-PC
+	url = git@github.com:HUANsic/XinDong-PC.git
